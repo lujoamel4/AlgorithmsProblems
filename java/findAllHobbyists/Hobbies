@@ -1,0 +1,30 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Hobbies {
+
+    private final HashMap<String, String[]> hobbies = new HashMap<String, String[]>();
+
+    public void add(String hobbyist, String... hobbies) {
+        this.hobbies.put(hobbyist, hobbies);
+    }
+
+    public List<String> findAllHobbyists(String hobby) {
+        List<String> result = new ArrayList<>();
+        for (String h : this.hobbies.keySet()) {
+            if (Arrays.stream(this.hobbies.get(h)).filter(hobbyElement -> hobbyElement.equalsIgnoreCase(hobby)).count() > 0) {
+                result.add(h);
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Hobbies hobbies = new Hobbies();
+        hobbies.add("Steve", "Fashion", "Piano", "Reading");
+        hobbies.add("Patty", "Drama", "Magic", "Pets");
+        hobbies.add("Chad", "Puzzles", "Pets", "Yoga");
+
+        System.out.println(Arrays.toString(hobbies.findAllHobbyists("Yoga").toArray()));
+    }
+}
